@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+# Images
+*.jpg
+*.png
+*.jpeg
+
+# Other
+bin
+build
+obj
+
+.vscode
+*#
