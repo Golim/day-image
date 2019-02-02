@@ -44,9 +44,8 @@ string getImageURL(char * URL, string begin, string end) {
     int pos1 = str.find(begin);
     if (pos1 > 0){
         pos1 += begin.length();
-        int pos2 = str.find(end);
+        int pos2 = str.find(end, str.find(begin) + 1);
         if (pos2 > 0){
-            pos2 += 4;
             return str.substr(pos1, pos2 - pos1);
         }
     }

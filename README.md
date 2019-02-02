@@ -13,12 +13,26 @@ make
 ./bin/dayimg [OPTION]
 ```
 
+### Install
+```
+sudo make install
+```
+
+### Uninstall
+```
+sudo make uninstall
+```
+
+## Dependencies
+- [Nitrogen](https://github.com/l3ib/nitrogen): used to set the image as wallpaper
+
 ### Options
 ```
 -h, --help			dsplay this help and exit
 -s, --source source		set the source of the day image (default is random)
     SOURCES:
-    - bing		www.bing.com
-    - nasa		www.nasa.gov/multimedia/imagegallery/iotd.html
-    - random	choose randomly from the available sources
+    - bing		            www.bing.com
+    - nasa		            www.nasa.gov/multimedia/imagegallery/iotd.html
+    - national-geographic           www.nationalgeographic.com/photography/photo-of-the-day/
+    - random                        choose randomly from the available sources
 ```

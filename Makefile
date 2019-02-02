@@ -1,4 +1,4 @@
-.PHONY: build clean
+.PHONY: build clean install uninstall
 SRC = src
 BUILDING = obj
 BIN = bin
@@ -6,7 +6,9 @@ BIN = bin
 CXX = g++
 CXXFLAGS = -std=c++0x -Wall -lcurl
 
-build: main
+PREFIX = /usr/local
+
+build: dayimg
 
 clean:
 	rm -Rf  $(BIN)/
@@ -14,8 +16,15 @@ clean:
 	rm -f ./log.txt
 	rm -f $(SRC)/*.gch
 
+install: dayimg
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp ./bin/$< $(DESTDIR)$(PREFIX)/bin/dayimg
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/dayimg
+
 ### MAIN ###
-main: main.o downloader.o wallpaper.o parser.o bin
+dayimg: main.o downloader.o wallpaper.o parser.o bin
 	$(CXX) $(CXXFLAGS) $(BUILDING)/main.o $(BUILDING)/downloader.o $(BUILDING)/wallpaper.o $(BUILDING)/parser.o  -o $(BIN)/dayimg
 
 main.o: building

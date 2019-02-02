@@ -6,6 +6,6 @@ using namespace std;
 
 
 void setWallpaper(string path){
-    string cmd = "nitrogen --set-auto " + path;
+    string cmd = "nitrogen --set-auto --save" + path;
     system(cmd.c_str());
 }

@@ -21,6 +21,9 @@ char * NASA_URL = "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss";
 string NASA_BEGIN = "<enclosure url=\"";
 string NASA_END = ".jpg";
 
+char * NATGEO_URL = "https://www.nationalgeographic.com/photography/photo-of-the-day/";
+string NATGEO_BEGIN = "https://yourshot.nationalgeographic.com";
+string NATGEO_END = "\"/>";
 
 int parseArgument(int argc, char **argv);
 void printUsage();
@@ -34,18 +37,23 @@ int main(int argc, char** argv) {
         string imageURL = "";
 
         if(SOURCE.compare("bing") == 0){
-            imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END);
+            imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
         }
         else if (SOURCE.compare("nasa") == 0) {
-            imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
+            imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END) + ".jpg";
+        }
+        else if (SOURCE.compare("national-geographic") == 0) {
+            imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
         }
         else if (SOURCE.compare("random") == 0) {
             srand (time(NULL));
-            int random = rand() % 2;
+            int random = rand() % 3;
             if(random == 0){
-                imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END);
+                imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
             } else if(random == 1){
-                imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
+                imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END) + ".jpg";
+            } else if(random == 2){
+                imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
             }
         }
         else {
@@ -94,11 +102,18 @@ int parseArgument(int argc, char **argv){
         else if(option.compare("-s") == 0 || option.compare("--source") == 0){
             if(i + 1 <= argc){
                 SOURCE = argv[i + 1];
+                i++;
             } else {
-                cout << argv[i + 1];
                 printUsage();
                 return -1;
             }
+        }
+
+        // Error
+        else {
+            printError("Option " + option + " not found");
+            printUsage();
+            return -1;
         }
     }
 
@@ -117,9 +132,10 @@ void printHelp(){
     cout << "\t-h, --help\t\t\tdsplay this help and exit\n";
     cout << "\t-s, --source source\t\tset the source of the day image (default is random)\n";
     cout << "\t\tSOURCES:\n";
-    cout << "\t\t- bing\t\twww.bing.com\n";
-    cout << "\t\t- nasa\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
-    cout << "\t\t- random\tchoose randomly from the available sources\n";
+    cout << "\t\t- bing\t\t\twww.bing.com\n";
+    cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
+    cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
+    cout << "\t\t- random\t\tchoose randomly from the available sources\n";
     cout << "Exit codes:\n\t0: OK\n\t-1:Generic Error\n\t-2: Source not found\n";
 
 }
