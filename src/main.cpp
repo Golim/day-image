@@ -13,7 +13,7 @@ using namespace std;
 string SOURCE = "random";
 
 // Move this in a util file
-char * BING_URL = "www.bing.com";
+char * BING_URL = "www.bing.com"; // declare an array: char [] array and then char * BING_URL = array;
 string BING_BEGIN = "background-image:url(";
 string BING_END = ".jpg);";
 
@@ -36,6 +36,19 @@ int main(int argc, char** argv) {
     if(r == 0){
         string imageURL = "";
 
+        if (SOURCE.compare("random") == 0) {
+            srand (time(NULL));
+            int random = rand() % 3;
+            if(random == 0){
+                SOURCE = "bing";
+            } else if(random == 1){
+                SOURCE = "nasa";
+            } else if(random == 2){
+                SOURCE = "national-geographic";
+            }
+        }
+
+
         if(SOURCE.compare("bing") == 0){
             imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
         }
@@ -44,17 +57,6 @@ int main(int argc, char** argv) {
         }
         else if (SOURCE.compare("national-geographic") == 0) {
             imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
-        }
-        else if (SOURCE.compare("random") == 0) {
-            srand (time(NULL));
-            int random = rand() % 3;
-            if(random == 0){
-                imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
-            } else if(random == 1){
-                imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END) + ".jpg";
-            } else if(random == 2){
-                imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
-            }
         }
         else {
             printError("Error: source not found");
@@ -67,7 +69,13 @@ int main(int argc, char** argv) {
             cout << "Failed to download file";
             return -1;
         } else {
-            setWallpaper("img.jpg");
+            if(imageURL.find(".jpg") != string::npos){
+                setWallpaper("img.jpg");
+            } else {
+                setWallpaper("img.jpeg");
+            }
+
+            
             cout << "Done!\n";
         }
 
@@ -116,6 +124,7 @@ int parseArgument(int argc, char **argv){
             return -1;
         }
     }
+
 
     return 0;
 }

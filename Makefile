@@ -15,6 +15,7 @@ clean:
 	rm -Rf $(BUILDING)/
 	rm -f ./log.txt
 	rm -f $(SRC)/*.gch
+	rm -f img.*
 
 install: dayimg
 	mkdir -p $(DESTDIR)$(PREFIX)/bin

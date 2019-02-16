@@ -22,9 +22,15 @@ bool downloadImage(string URL)
 {
     const char *url = URL.c_str();
 
-    FILE* fp = fopen("img.jpg", "wb"); // TODO: set another folder (passing it by args?)
-    if (!fp)
-    {
+    FILE* fp;
+
+    if(URL.find(".jpg") != string::npos){
+        fp = fopen("img.jpg", "w+b");
+    } else {
+        fp = fopen("img.jpeg", "w+b");
+    }
+
+    if (!fp){
         printf("Failed to create file on the disk\n");
         return false;
     }

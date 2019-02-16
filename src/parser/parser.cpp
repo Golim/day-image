@@ -19,14 +19,15 @@ string getSubstring(string & str, string begin, string end) {
 
         int pos2 = str.find(end);
         if (pos2 > 0){
-            cout << str.substr(pos1, pos2 - pos1);
+            return str.substr(pos1, pos2 - pos1);
         }
     }
+
+    return "";
 }
 
-string getImageURL(char * URL, string begin, string end) {
+string getImageURL(const char * URL, string begin, string end) {
     CURL *curl;
-    CURLcode res;
     string readBuffer;
 
     curl = curl_easy_init();
@@ -34,7 +35,7 @@ string getImageURL(char * URL, string begin, string end) {
         curl_easy_setopt(curl, CURLOPT_URL, URL);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-        res = curl_easy_perform(curl);
+        curl_easy_perform(curl);
         curl_easy_cleanup(curl);
     }
 

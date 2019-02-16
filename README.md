@@ -4,6 +4,7 @@ Sets the image of the day of different sources as a wallpaper.
 The sources are:
 - [Bing](https://www.bing.com)
 - [Nasa](https://www.nasa.gov/multimedia/imagegallery/iotd.html)
+- [National Geographic](https://www.nationalgeographic.com/photography/photo-of-the-day/)
 
 ## Getting started
 ```
@@ -24,7 +25,7 @@ sudo make uninstall
 ```
 
 ## Dependencies
-- [Nitrogen](https://github.com/l3ib/nitrogen): used to set the image as wallpaper
+- [Feh](https://feh.finalrewind.org/): used to set the image as wallpaper
 
 ### Options
 ```
