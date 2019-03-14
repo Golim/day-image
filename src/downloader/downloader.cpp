@@ -2,6 +2,9 @@
 #include <curl/curl.h>
 #include <string>
 #include <iostream>
+#include <stdlib.h>
+
+#include "../util/util.h"
 
 using namespace std;
 
@@ -22,14 +25,20 @@ bool downloadImage(string URL)
 {
     const char *url = URL.c_str();
 
-    FILE* fp;
+    
+    string imagePath;
+
+    string cmd = string("mkdir -p ") + IMAGE_PATH;
+
+    system(cmd.c_str());
 
     if(URL.find(".jpg") != string::npos){
-        fp = fopen("img.jpg", "w+b");
+        imagePath = IMAGE_PATH + string("img.jpg");
     } else {
-        fp = fopen("img.jpeg", "w+b");
+        imagePath = IMAGE_PATH + string("img.jpeg");
     }
 
+    FILE* fp = fopen(imagePath.c_str(), "w+b");
     if (!fp){
         printf("Failed to create file on the disk\n");
         return false;

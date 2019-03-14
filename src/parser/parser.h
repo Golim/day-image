@@ -8,7 +8,6 @@
 
 using namespace std;
 
-static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
 string getImageURL(const char * URL, string begin, string end);
 string getSubstring(string str, string begin, string end);
 

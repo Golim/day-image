@@ -7,23 +7,11 @@
 #include "downloader/downloader.h"
 #include "wallpaper/wallpaper.h"
 #include "parser/parser.h"
+#include "util/util.h"
 
 using namespace std;
 
-string SOURCE = "random";
-
-// Move this in a util file
-char * BING_URL = "www.bing.com"; // declare an array: char [] array and then char * BING_URL = array;
-string BING_BEGIN = "background-image:url(";
-string BING_END = ".jpg);";
-
-char * NASA_URL = "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss";
-string NASA_BEGIN = "<enclosure url=\"";
-string NASA_END = ".jpg";
-
-char * NATGEO_URL = "https://www.nationalgeographic.com/photography/photo-of-the-day/";
-string NATGEO_BEGIN = "https://yourshot.nationalgeographic.com";
-string NATGEO_END = "\"/>";
+string SOURCE = string("random");
 
 int parseArgument(int argc, char **argv);
 void printUsage();
@@ -69,12 +57,15 @@ int main(int argc, char** argv) {
             cout << "Failed to download file";
             return -1;
         } else {
+            string imagePath;
+
             if(imageURL.find(".jpg") != string::npos){
-                setWallpaper("img.jpg");
+                imagePath = (IMAGE_PATH + string("img.jpg"));
             } else {
-                setWallpaper("img.jpeg");
+                imagePath = (IMAGE_PATH + string("img.jpeg"));
             }
 
+            setWallpaper(imagePath);
             
             cout << "Done!\n";
         }
@@ -145,7 +136,7 @@ void printHelp(){
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
-    cout << "Exit codes:\n\t0: OK\n\t-1:Generic Error\n\t-2: Source not found\n";
+    cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n";
 
 }
 
