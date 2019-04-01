@@ -1,5 +1,5 @@
 # Day Image
-Sets the image of the day of different sources as a wallpaper.
+Sets the image of the day of different sources as a wallpaper on Linux.
 
 The sources are:
 - [Bing](https://www.bing.com)
@@ -37,3 +37,8 @@ sudo make uninstall
     - national-geographic           www.nationalgeographic.com/photography/photo-of-the-day/
     - random                        choose randomly from the available sources
 ```
+
+## Screenshots
+![Bing](screenshots/bing.png)
+
+![National Geographic](screenshots/national-geographic.png)

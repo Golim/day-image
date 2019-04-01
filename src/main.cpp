@@ -2,7 +2,8 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
+#include <unistd.h>
 
 #include "downloader/downloader.h"
 #include "wallpaper/wallpaper.h"
@@ -65,9 +66,15 @@ int main(int argc, char** argv) {
                 imagePath = (IMAGE_PATH + string("img.jpeg"));
             }
 
-            setWallpaper(imagePath);
+            if (access("/usr/bin/feh", X_OK) == 0) {
+                setWallpaper(imagePath);
+                cout << "Wallpaper set from " + SOURCE + "\n";
+            } else {
+                cout << "feh is not installed" << endl;
+                cout << "You can find the downloaded image at " + imagePath << endl;
+                exit(-3);
+            }
             
-            cout << "Done!\n";
         }
 
         return 0;
