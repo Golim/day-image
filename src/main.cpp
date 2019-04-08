@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
             imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
         }
         else if (SOURCE.compare("nasa") == 0) {
-            imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END) + ".jpg";
+            imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
         }
         else if (SOURCE.compare("national-geographic") == 0) {
             imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
@@ -50,25 +50,25 @@ int main(int argc, char** argv) {
         else {
             printError("Error: source not found");
             printUsage();
-            return -2;
+            exit(-2);
         }
 
         if (!downloadImage(imageURL))
         {
             cout << "Failed to download file";
-            return -1;
+            exit(-1);
         } else {
             string imagePath;
-
+            
             if(imageURL.find(".jpg") != string::npos){
                 imagePath = (IMAGE_PATH + string("img.jpg"));
             } else {
                 imagePath = (IMAGE_PATH + string("img.jpeg"));
             }
-
+            
             if (access("/usr/bin/feh", X_OK) == 0) {
                 setWallpaper(imagePath);
-                cout << "Wallpaper set from " + SOURCE + "\n";
+                cout << "Wallpaper set from " + SOURCE << endl;
             } else {
                 cout << "feh is not installed" << endl;
                 cout << "You can find the downloaded image at " + imagePath << endl;
@@ -143,7 +143,7 @@ void printHelp(){
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
-    cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n";
+    cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
 
 }
 
