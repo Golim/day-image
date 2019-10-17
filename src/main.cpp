@@ -12,12 +12,15 @@
 
 using namespace std;
 
-string SOURCE = string("random");
+string source = string("random");
+bool verbose = false;
+string imagePath = IMAGE_PATH;
 
 int parseArgument(int argc, char **argv);
 void printUsage();
 void printHelp();
 void printError(string err);
+void printVerbose(string msg, string value);
 
 int main(int argc, char** argv) {
     int r = parseArgument(argc, argv);
@@ -25,26 +28,27 @@ int main(int argc, char** argv) {
     if(r == 0){
         string imageURL = "";
 
-        if (SOURCE.compare("random") == 0) {
+        if (source.compare("random") == 0) {
             srand (time(NULL));
             int random = rand() % 3;
             if(random == 0){
-                SOURCE = "bing";
+                source = "bing";
             } else if(random == 1){
-                SOURCE = "nasa";
+                source = "nasa";
             } else if(random == 2){
-                SOURCE = "national-geographic";
+                source = "national-geographic";
             }
         }
 
+        printVerbose("The source is:", source);
 
-        if(SOURCE.compare("bing") == 0){
+        if(source.compare("bing") == 0){
             imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
         }
-        else if (SOURCE.compare("nasa") == 0) {
+        else if (source.compare("nasa") == 0) {
             imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
         }
-        else if (SOURCE.compare("national-geographic") == 0) {
+        else if (source.compare("national-geographic") == 0) {
             imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
         }
         else {
@@ -53,22 +57,30 @@ int main(int argc, char** argv) {
             exit(-2);
         }
 
-        if (!downloadImage(imageURL))
-        {
-            cout << "Failed to download file";
-            exit(-1);
+        printVerbose("The URL of the image is:", imageURL);
+
+        string imageFormat = "";
+
+        if(imageURL.find(".jpg") != string::npos){
+            imageFormat = string(".jpg");
         } else {
-            string imagePath;
-            
-            if(imageURL.find(".jpg") != string::npos){
-                imagePath = (IMAGE_PATH + string("img.jpg"));
-            } else {
-                imagePath = (IMAGE_PATH + string("img.jpeg"));
-            }
+            imageFormat = string(".jpeg");
+        }
+
+        string imageName = "img"+ imageFormat;
+
+        if (!downloadImage(imageURL, imagePath, imageName))
+        {
+            cerr << "Failed to download file";
+            exit(-1);
+        } else {            
+            string image = imagePath + "/" + imageName;
+
+            printVerbose("The downloaded image is:", image);
             
             if (access("/usr/bin/feh", X_OK) == 0) {
-                setWallpaper(imagePath);
-                cout << "Wallpaper set from " + SOURCE << endl;
+                setWallpaper(image);
+                printVerbose("Wallpaper set from:", source);
             } else {
                 cout << "feh is not installed" << endl;
                 cout << "You can find the downloaded image at " + imagePath << endl;
@@ -107,12 +119,28 @@ int parseArgument(int argc, char **argv){
         // SOURCE       -s  --source
         else if(option.compare("-s") == 0 || option.compare("--source") == 0){
             if(i + 1 <= argc){
-                SOURCE = argv[i + 1];
+                source = argv[i + 1];
                 i++;
             } else {
                 printUsage();
                 return -1;
             }
+        }
+
+        // SAVE       -S  --save
+        else if(option.compare("-S") == 0 || option.compare("--save") == 0){
+            if(i + 1 <= argc){
+                imagePath = argv[i + 1];
+                i++;
+            } else {
+                printUsage();
+                return -1;
+            }
+        }
+
+        // VERBOSE       -v  --verbose
+        else if(option.compare("-v") == 0 || option.compare("--verbose") == 0){
+            verbose = true;
         }
 
         // Error
@@ -135,9 +163,11 @@ void printUsage(){
 void printHelp(){
     cout << "Usage:  dayimg [OPTION]" << endl;
     cout << "Sets the image of the day of different sources as a wallpaper." << endl << endl;
-    cout << "OPTIONS:\nAll OPTION are not mandatory. Contemplated options are:\n";
-    cout << "\t-h, --help\t\t\tdsplay this help and exit\n";
+    cout << "OPTIONS:\nAll OPTIONS are not mandatory. Contemplated options are:\n";
+    cout << "\t-h, --help\t\t\tdisplay this help and exit\n";
+    cout << "\t-v, --verbose\t\t\tprint some information messages\n";
     cout << "\t-s, --source source\t\tset the source of the day image (default is random)\n";
+    cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "\t\tSOURCES:\n";
     cout << "\t\t- bing\t\t\twww.bing.com\n";
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
@@ -149,4 +179,10 @@ void printHelp(){
 
 void printError(string err){
     cerr << err << endl;
+}
+
+void printVerbose(string msg, string value){
+    if(verbose){
+        cout << msg << endl << value << endl << endl;
+    }
 }

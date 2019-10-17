@@ -9,6 +9,6 @@ using namespace std;
 
 size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata);
 
-bool downloadImage(string url);
+bool downloadImage(string url, string imagePath, string imageName);
 
 #endif

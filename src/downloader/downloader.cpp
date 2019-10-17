@@ -21,24 +21,15 @@ size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
     return written;
 }
 
-bool downloadImage(string URL)
+bool downloadImage(string URL, string imagePath, string imageName)
 {
     const char *url = URL.c_str();
 
-    
-    string imagePath;
+    string cmd = string("mkdir -p ") + imagePath;
 
-    string cmd = string("mkdir -p ") + IMAGE_PATH;
+    string image = imagePath + "/" + imageName;
 
-    system(cmd.c_str());
-
-    if(URL.find(".jpg") != string::npos){
-        imagePath = IMAGE_PATH + string("img.jpg");
-    } else {
-        imagePath = IMAGE_PATH + string("img.jpeg");
-    }
-
-    FILE* fp = fopen(imagePath.c_str(), "w+b");
+    FILE* fp = fopen(image.c_str(), "w+b");
     if (!fp){
         printf("Failed to create file on the disk\n");
         return false;
