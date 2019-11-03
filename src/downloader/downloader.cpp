@@ -26,6 +26,7 @@ bool downloadImage(string URL, string imagePath, string imageName)
     const char *url = URL.c_str();
 
     string cmd = string("mkdir -p ") + imagePath;
+    system(cmd.c_str());
 
     string image = imagePath + "/" + imageName;
 
