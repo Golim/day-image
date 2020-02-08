@@ -43,13 +43,13 @@ int main(int argc, char** argv) {
         printVerbose("The source is:", source);
 
         if(source.compare("bing") == 0){
-            imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + ".jpg";
+            imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + BING_END;
         }
         else if (source.compare("nasa") == 0) {
             imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
         }
         else if (source.compare("national-geographic") == 0) {
-            imageURL =  NATGEO_BEGIN +  getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
+            imageURL = getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
         }
         else {
             printError("Error: source not found");
@@ -167,12 +167,12 @@ void printHelp(){
     cout << "\t-h, --help\t\t\tdisplay this help and exit\n";
     cout << "\t-v, --verbose\t\t\tprint some information messages\n";
     cout << "\t-s, --source source\t\tset the source of the day image (default is random)\n";
-    cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "\t\tSOURCES:\n";
     cout << "\t\t- bing\t\t\twww.bing.com\n";
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
+    cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
 
 }
