@@ -15,4 +15,11 @@
 #define NATGEO_BEGIN ("<meta property=\"og:image\" content=\"")
 #define NATGEO_END ("\"/>")
 
+#define UNSPLASH_URL ("https://unsplash.com/")
+#define UNSPLASH_BEGIN ("href=\"/photos/")
+#define UNSPLASH_END ("\">Photo of the Day")
+#define UNSPLASH_DOWNLOAD_URL ("https://unsplash.com/photos/")
+#define UNSPLASH_DOWNLOAD ("/download?force=true")
+
+
 #endif

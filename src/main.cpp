@@ -30,13 +30,15 @@ int main(int argc, char** argv) {
 
         if (source.compare("random") == 0) {
             srand (time(NULL));
-            int random = rand() % 3;
+            int random = rand() % 4;
             if(random == 0){
                 source = "bing";
             } else if(random == 1){
                 source = "nasa";
             } else if(random == 2){
                 source = "national-geographic";
+            } else if(random == 3){
+                source = "unsplash";
             }
         }
 
@@ -50,6 +52,9 @@ int main(int argc, char** argv) {
         }
         else if (source.compare("national-geographic") == 0) {
             imageURL = getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
+        }
+        else if (source.compare("unsplash") == 0) {
+            imageURL = UNSPLASH_DOWNLOAD_URL + getImageURL(UNSPLASH_URL, UNSPLASH_BEGIN, UNSPLASH_END) + UNSPLASH_DOWNLOAD;
         }
         else {
             printError("Error: source not found");
@@ -162,7 +167,7 @@ void printUsage(){
 
 void printHelp(){
     cout << "Usage:  dayimg [OPTION]" << endl;
-    cout << "Sets the image of the day of different sources as a wallpaper." << endl << endl;
+    cout << "Sets as wallpaper the picture of the day of different sources." << endl << endl;
     cout << "OPTIONS:\nAll OPTIONS are not mandatory. Contemplated options are:\n";
     cout << "\t-h, --help\t\t\tdisplay this help and exit\n";
     cout << "\t-v, --verbose\t\t\tprint some information messages\n";
@@ -171,6 +176,7 @@ void printHelp(){
     cout << "\t\t- bing\t\t\twww.bing.com\n";
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
+    cout << "\t\t- unsplash\t\thttps://unsplash.com\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
     cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
