@@ -7,6 +7,7 @@ The sources are:
 - [Bing](https://www.bing.com)
 - [Nasa](https://www.nasa.gov/multimedia/imagegallery/iotd.html)
 - [National Geographic](https://www.nationalgeographic.com/photography/photo-of-the-day/)
+- [Unsplash](https://unsplash.com)
 
 ## Getting started
 
@@ -42,7 +43,7 @@ sudo make uninstall
     - bing		            www.bing.com
     - nasa		            www.nasa.gov/multimedia/imagegallery/iotd.html
     - national-geographic   www.nationalgeographic.com/photography/photo-of-the-day/
-    - unsplash              https://unsplash.com
+    - unsplash              www.unsplash.com
     - random                        choose randomly from the available sources
 ```
 

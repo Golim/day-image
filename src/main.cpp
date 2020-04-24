@@ -176,7 +176,7 @@ void printHelp(){
     cout << "\t\t- bing\t\t\twww.bing.com\n";
     cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
-    cout << "\t\t- unsplash\t\thttps://unsplash.com\n";
+    cout << "\t\t- unsplash\t\twww.unsplash.com\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
     cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
