@@ -5,9 +5,11 @@ Sets as wallpaper the picture of the day of different sources.
 The sources are:
 
 - [Bing](https://www.bing.com)
-- [Nasa](https://www.nasa.gov/multimedia/imagegallery/iotd.html)
+- [NASA Earth Observatory](https://earthobservatory.nasa.gov/topic/image-of-the-day)
+- [NASA](https://www.nasa.gov/multimedia/imagegallery/iotd.html)
 - [National Geographic](https://www.nationalgeographic.com/photography/photo-of-the-day/)
 - [Unsplash](https://unsplash.com)
+- [NASA Astronomy Picture of the Day](https://apod.nasa.gov/apod/astropix.html)
 
 ## Getting started
 
@@ -24,6 +26,10 @@ make
 sudo make install
 ```
 
+#### On AUR
+
+- `day-image-git`: [https://aur.archlinux.org/packages/day-image-git](https://aur.archlinux.org/packages/day-image-git)
+
 ### Uninstall
 
 ```bash
@@ -37,16 +43,20 @@ sudo make uninstall
 ### Options
 
 ```bash
--h, --help			dsplay this help and exit
--s, --source source		set the source of the day image (default is random)
+-h, --help             display this help and exit
+-v, --verbose          print some information messages
+-s, --source source    set the source of the day image (default is random)
     SOURCES:
-    - bing		            www.bing.com
-    - nasa		            www.nasa.gov/multimedia/imagegallery/iotd.html
-    - national-geographic   www.nationalgeographic.com/photography/photo-of-the-day/
-    - unsplash              www.unsplash.com
-    - random                        choose randomly from the available sources
+    - bing                   https://bing.com
+    - earthobservatory       https://earthobservatory.nasa.gov/topic/image-of-the-day
+    - nasa                   https://nasa.gov/multimedia/imagegallery/iotd.html
+    - national-geographic    https://nationalgeographic.com/photography/photo-of-the-day/
+    - unsplash               https://unsplash.com
+    - apod                   https://apod.nasa.gov/apod/astropix.html
+    - random                 choose randomly from the available sources
+-S, --save /path/to/image/   save the image to the specified path (default is /tmp/dayimg/)
 ```
 
 ## Screenshots
 
-![Functioning](screenshots/day-image.gif)
+![How it works](screenshots/day-image.gif)

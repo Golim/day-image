@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 
         if (source.compare("random") == 0) {
             srand (time(NULL));
-            int random = rand() % 4;
+            int random = rand() % 6;
             if(random == 0){
                 source = "bing";
             } else if(random == 1){
@@ -39,6 +39,10 @@ int main(int argc, char** argv) {
                 source = "national-geographic";
             } else if(random == 3){
                 source = "unsplash";
+            } else if(random == 4){
+                source = "apod";
+            } else if(random == 5){
+                source = "apod";
             }
         }
 
@@ -55,6 +59,13 @@ int main(int argc, char** argv) {
         }
         else if (source.compare("unsplash") == 0) {
             imageURL = UNSPLASH_DOWNLOAD_URL + getImageURL(UNSPLASH_URL, UNSPLASH_BEGIN, UNSPLASH_END) + UNSPLASH_DOWNLOAD;
+        }
+        else if (source.compare("apod") == 0) {
+            imageURL = APOD_DOWNLOAD_URL + getImageURL(APOD_URL, APOD_BEGIN, APOD_END);
+        }
+        else if (source.compare("earthobservatory") == 0) {
+            imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
+            imageURL.replace(imageURL.find("th.jpg", 0), 6, "lrg.jpg");
         }
         else {
             printError("Error: source not found");
@@ -156,7 +167,6 @@ int parseArgument(int argc, char **argv){
         }
     }
 
-
     return 0;
 }
 
@@ -166,17 +176,19 @@ void printUsage(){
 }
 
 void printHelp(){
-    cout << "Usage:  dayimg [OPTION]" << endl;
+    cout << "Usage:  dayimg [OPTIONS]" << endl;
     cout << "Sets as wallpaper the picture of the day of different sources." << endl << endl;
     cout << "OPTIONS:\nAll OPTIONS are not mandatory. Contemplated options are:\n";
     cout << "\t-h, --help\t\t\tdisplay this help and exit\n";
     cout << "\t-v, --verbose\t\t\tprint some information messages\n";
     cout << "\t-s, --source source\t\tset the source of the day image (default is random)\n";
     cout << "\t\tSOURCES:\n";
-    cout << "\t\t- bing\t\t\twww.bing.com\n";
-    cout << "\t\t- nasa\t\t\twww.nasa.gov/multimedia/imagegallery/iotd.html\n";
-    cout << "\t\t- national-geographic\twww.nationalgeographic.com/photography/photo-of-the-day/\n";
-    cout << "\t\t- unsplash\t\twww.unsplash.com\n";
+    cout << "\t\t- bing\t\t\thttps://bing.com\n";
+    cout << "\t\t- earthobservatory\thttps://earthobservatory.nasa.gov/topic/image-of-the-day\n";
+    cout << "\t\t- nasa\t\t\thttps://nasa.gov/multimedia/imagegallery/iotd.html\n";
+    cout << "\t\t- national-geographic\thttps://nationalgeographic.com/photography/photo-of-the-day/\n";
+    cout << "\t\t- unsplash\t\thttps://unsplash.com\n";
+    cout << "\t\t- apod\t\t\thttps://apod.nasa.gov/apod/astropix.html\n";
     cout << "\t\t- random\t\tchoose randomly from the available sources\n";
     cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
