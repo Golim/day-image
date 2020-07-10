@@ -10,22 +10,6 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-string getSubstring(string & str, string begin, string end) {
-    int pos1 = str.find(begin);
-    cout << str.substr(pos1, 10);
-    
-    if (pos1 > 0){
-        pos1 += begin.length();
-
-        int pos2 = str.find(end);
-        if (pos2 > 0){
-            return str.substr(pos1, pos2 - pos1);
-        }
-    }
-
-    return "";
-}
-
 string getImageURL(const char * URL, string begin, string end) {
     CURL *curl;
     string readBuffer;
@@ -45,7 +29,7 @@ string getImageURL(const char * URL, string begin, string end) {
     int pos1 = str.find(begin);
     if (pos1 > 0){
         pos1 += begin.length();
-        int pos2 = str.find(end, str.find(begin) + 1);
+        int pos2 = str.find(end, pos1 + 1);
         if (pos2 > 0){
             return str.substr(pos1, pos2 - pos1);
         }

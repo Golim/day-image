@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-#include <time.h>
+#include <ctime>
 #include <unistd.h>
 
 #include "downloader/downloader.h"
@@ -29,8 +29,8 @@ int main(int argc, char** argv) {
         string imageURL = "";
 
         if (source.compare("random") == 0) {
-            srand (time(NULL));
-            int random = rand() % 6;
+            srand(time(NULL));
+            int random = rand() % 7;
             if(random == 0){
                 source = "bing";
             } else if(random == 1){
@@ -42,7 +42,9 @@ int main(int argc, char** argv) {
             } else if(random == 4){
                 source = "apod";
             } else if(random == 5){
-                source = "apod";
+                source = "earthobservatory";
+            } else if(random == 6){
+                source = "epod";
             }
         }
 
@@ -67,6 +69,9 @@ int main(int argc, char** argv) {
             imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
             imageURL.replace(imageURL.find("th.jpg", 0), 6, "lrg.jpg");
         }
+        else if (source.compare("epod") == 0) {
+            imageURL = getImageURL(EPOD_URL, EPOD_BEGIN, EPOD_END);
+        }
         else {
             printError("Error: source not found");
             printUsage();
@@ -75,15 +80,23 @@ int main(int argc, char** argv) {
 
         printVerbose("The URL of the image is:", imageURL);
 
-        string imageFormat = "";
+        string imageFormat;
 
-        if(imageURL.find(".jpg") != string::npos){
-            imageFormat = string(".jpg");
+        if(imageURL.find(".png") != string::npos){
+            imageFormat = string(".png");
         } else {
-            imageFormat = string(".jpeg");
+            imageFormat = string(".jpg");
         }
 
-        string imageName = "img"+ imageFormat;
+        time_t t = time(NULL);
+        tm* now = localtime(&t);
+
+        string separator = "_";
+        string imageName = source            + separator
+            + to_string(now->tm_year + 1900) + separator
+            + to_string(now->tm_mon  + 1)    + separator
+            + to_string(now->tm_mday)
+            + imageFormat;
 
         if (!downloadImage(imageURL, imagePath, imageName))
         {
@@ -102,9 +115,7 @@ int main(int argc, char** argv) {
                 cout << "You can find the downloaded image at " + imagePath << endl;
                 exit(-3);
             }
-            
         }
-
         return 0;
     }
 
@@ -127,7 +138,7 @@ int parseArgument(int argc, char **argv){
         option = (string) argv[i];
 
         // HELP         -h  --help
-        if (((string) argv[1]).compare("--help") == 0 || ((string) argv[1]).compare("-h") == 0) {
+        if (((string) option).compare("--help") == 0 || ((string) option).compare("-h") == 0) {
             printHelp();
             return 1;
         }
@@ -185,6 +196,7 @@ void printHelp(){
     cout << "\t\tSOURCES:\n";
     cout << "\t\t- bing\t\t\thttps://bing.com\n";
     cout << "\t\t- earthobservatory\thttps://earthobservatory.nasa.gov/topic/image-of-the-day\n";
+    cout << "\t\t- epod\t\t\thttps://epod.usra.edu/\n";
     cout << "\t\t- nasa\t\t\thttps://nasa.gov/multimedia/imagegallery/iotd.html\n";
     cout << "\t\t- national-geographic\thttps://nationalgeographic.com/photography/photo-of-the-day/\n";
     cout << "\t\t- unsplash\t\thttps://unsplash.com\n";

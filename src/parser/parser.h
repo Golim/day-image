@@ -9,6 +9,5 @@
 using namespace std;
 
 string getImageURL(const char * URL, string begin, string end);
-string getSubstring(string str, string begin, string end);
 
 #endif

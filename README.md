@@ -5,6 +5,7 @@ Sets as wallpaper the picture of the day of different sources.
 The sources are:
 
 - [Bing](https://www.bing.com)
+- [Earth Science Picture of the Day](https://epod.usra.edu/)
 - [NASA Earth Observatory](https://earthobservatory.nasa.gov/topic/image-of-the-day)
 - [NASA](https://www.nasa.gov/multimedia/imagegallery/iotd.html)
 - [National Geographic](https://www.nationalgeographic.com/photography/photo-of-the-day/)
@@ -49,6 +50,7 @@ sudo make uninstall
     SOURCES:
     - bing                   https://bing.com
     - earthobservatory       https://earthobservatory.nasa.gov/topic/image-of-the-day
+    - epod                   https://epod.usra.edu/
     - nasa                   https://nasa.gov/multimedia/imagegallery/iotd.html
     - national-geographic    https://nationalgeographic.com/photography/photo-of-the-day/
     - unsplash               https://unsplash.com
