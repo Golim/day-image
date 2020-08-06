@@ -25,7 +25,6 @@ string getImageURL(const char * URL, string begin, string end) {
 
     string str = readBuffer;
 
-    
     int pos1 = str.find(begin);
     if (pos1 > 0){
         pos1 += begin.length();

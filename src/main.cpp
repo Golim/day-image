@@ -19,6 +19,7 @@ string imagePath = IMAGE_PATH;
 int parseArgument(int argc, char **argv);
 void printUsage();
 void printHelp();
+void test();
 void printError(string err);
 void printVerbose(string msg, string value);
 
@@ -67,7 +68,8 @@ int main(int argc, char** argv) {
         }
         else if (source.compare("earthobservatory") == 0) {
             imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
-            imageURL.replace(imageURL.find("th.jpg", 0), 6, "lrg.jpg");
+            if(imageURL.find(".png") == string::npos)
+                imageURL.replace(imageURL.find("th.", 0), 4, "lrg.");
         }
         else if (source.compare("epod") == 0) {
             imageURL = getImageURL(EPOD_URL, EPOD_BEGIN, EPOD_END);
@@ -154,7 +156,7 @@ int parseArgument(int argc, char **argv){
             }
         }
 
-        // SAVE       -S  --save
+        // SAVE         -S  --save
         else if(option.compare("-S") == 0 || option.compare("--save") == 0){
             if(i + 1 <= argc){
                 imagePath = argv[i + 1];
@@ -165,9 +167,16 @@ int parseArgument(int argc, char **argv){
             }
         }
 
-        // VERBOSE       -v  --verbose
+        // VERBOSE      -v  --verbose
         else if(option.compare("-v") == 0 || option.compare("--verbose") == 0){
             verbose = true;
+        }
+
+        // TEST         --test
+        // Print the image URL for all sources for testing purposes
+        else if(option.compare("--test") == 0){
+            test();
+            return 1;
         }
 
         // Error
@@ -205,6 +214,34 @@ void printHelp(){
     cout << "\t-S, --save /path/to/image/\tsave the image to the specified path (default is /tmp/dayimg/)\n";
     cout << "Exit codes:\n\t 0: OK\n\t-1: Generic Error\n\t-2: Source not found\n\t-3: feh not installed\n";
 
+}
+
+void test() {
+    string imageURL;
+    
+    // Bing
+    imageURL = BING_URL + getImageURL(BING_URL, BING_BEGIN, BING_END) + BING_END;
+    cout << "bing:\t\t\t" + imageURL << endl;
+
+    imageURL =  getImageURL(NASA_URL, NASA_BEGIN, NASA_END);
+    cout << "nasa:\t\t\t" + imageURL << endl;
+
+    imageURL = getImageURL(NATGEO_URL, NATGEO_BEGIN, NATGEO_END);
+    cout << "national-geographic:\t" + imageURL << endl;
+
+    imageURL = UNSPLASH_DOWNLOAD_URL + getImageURL(UNSPLASH_URL, UNSPLASH_BEGIN, UNSPLASH_END) + UNSPLASH_DOWNLOAD;
+    cout << "unsplash:\t\t" + imageURL << endl;
+
+    imageURL = APOD_DOWNLOAD_URL + getImageURL(APOD_URL, APOD_BEGIN, APOD_END);
+    cout << "apod:\t\t\t" + imageURL << endl;
+
+    imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
+    if(imageURL.find(".png") == string::npos)
+                imageURL.replace(imageURL.find("th.", 0), 4, "lrg.");
+    cout << "earth-observatory:\t" + imageURL << endl;
+
+    imageURL = getImageURL(EPOD_URL, EPOD_BEGIN, EPOD_END);
+    cout << "epod:\t\t\t" + imageURL << endl;
 }
 
 void printError(string err){
