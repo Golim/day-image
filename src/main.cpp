@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
         else if (source.compare("earthobservatory") == 0) {
             imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
             if(imageURL.find(".png") == string::npos)
-                imageURL.replace(imageURL.find("th.", 0), 4, "lrg.");
+                imageURL.replace(imageURL.find("th.", 0), 3, "lrg.");
         }
         else if (source.compare("epod") == 0) {
             imageURL = getImageURL(EPOD_URL, EPOD_BEGIN, EPOD_END);
@@ -237,7 +237,7 @@ void test() {
 
     imageURL = getImageURL(EARTHOBSERVATORY_URL, EARTHOBSERVATORY_BEGIN, EARTHOBSERVATORY_END);
     if(imageURL.find(".png") == string::npos)
-                imageURL.replace(imageURL.find("th.", 0), 4, "lrg.");
+                imageURL.replace(imageURL.find("th.", 0), 3, "lrg.");
     cout << "earth-observatory:\t" + imageURL << endl;
 
     imageURL = getImageURL(EPOD_URL, EPOD_BEGIN, EPOD_END);
