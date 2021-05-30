@@ -24,8 +24,8 @@
 #define NASA_BEGIN ("<enclosure url=\"")
 #define NASA_END ("\"")
 
-#define NATGEO_URL ("https://www.nationalgeographic.com/photography/photo-of-the-day/")
-#define NATGEO_BEGIN ("<meta property=\"og:image\" content=\"")
+#define NATGEO_URL ("https://www.nationalgeographic.com/photo-of-the-day/")
+#define NATGEO_BEGIN ("property=\"og:image\" content=\"")
 #define NATGEO_END ("\"")
 
 #define UNSPLASH_URL ("https://unsplash.com/")
