@@ -37,6 +37,7 @@ bool downloadImage(string URL, string imagePath, string imageName)
     }
 
     CURL* curlCtx = curl_easy_init();
+    curl_easy_setopt(curlCtx, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0");
     curl_easy_setopt(curlCtx, CURLOPT_URL, url);
     curl_easy_setopt(curlCtx, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(curlCtx, CURLOPT_WRITEFUNCTION, callbackfunction);
